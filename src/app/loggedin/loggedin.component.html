@@ -1,0 +1,78 @@
+<body>
+    <nav class="navbar">
+        <div class="menu-hamburguer" (click)="toggleMenu()">
+            <span></span>
+            <span></span>
+            <span></span>
+        </div>
+        <ul class="menu" id="menu" *ngIf="isMenuVisible">
+            <li><a (click)="showHome()"  style="cursor: pointer;">Home</a></li>
+            <li><a (click)="showMyRecipes()"  style="cursor: pointer;">Minhas Receitas</a></li>
+            <li><a (click)="showAddRecipe()"  style="cursor: pointer;">Adicionar Receita</a></li>
+            <li><a (click)="showDados()"  style="cursor: pointer;">Alterar Dados</a></li>
+            <li><a (click)="onLogout()"  style="cursor: pointer;">Sair</a></li>
+        </ul>
+    </nav>
+
+    <div class="content">
+        <section *ngIf="currentView === 'home'">
+            <h1>Bem-vindo(a) ao seu centro de receitas</h1>
+            <img class="foto" src="../../assets/receitas.png" alt="Imagem de comida">
+          </section>
+        
+          <!-- Seção Minhas Receitas -->
+          <section *ngIf="currentView === 'myRecipes'" class="my-recipes">
+            <div class="recipe-card">
+              <h3 class="recipe-title">Frango Xadrez</h3>
+              <p class="recipe-description">Uma deliciosa receita de frango xadrez com pimentões, cebola e molho especial.</p>
+              <div class="recipe-actions">
+                <button class="edit-button">Editar</button>
+                <button class="delete-button">Deletar</button>
+              </div>
+            </div>
+            <!-- Repita a estrutura .recipe-card para cada receita que você tem -->
+          </section>
+          
+        
+          <!-- Seção Adicionar Receita -->
+          <section *ngIf="currentView === 'addRecipe'" class="add-recipe">
+            <div class="form-container">
+              <h2 class="form-title">Adicionar Receita</h2>
+              <form>
+                <div class="form-group">
+                  <label for="recipeName">Título:</label>
+                  <input type="text" id="recipeName" name="recipeName" ngModel required class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="recipeDescription">Modo de preparo:</label>
+                  <textarea id="recipeDescription" name="recipeDescription" rows="4" ngModel required class="form-control"></textarea>
+                </div>
+                <button type="submit" class="submit-button">Adicionar</button>
+              </form>
+            </div>
+          </section>
+
+          <section *ngIf="currentView === 'dados'" class="update-data">
+            <div class="form-container">
+              <h2 class="form-title">Alterar Dados</h2>
+              <form (ngSubmit)="onUpdateDados()">
+                <div class="form-group">
+                  <label for="username">Nome de Usuário:</label>
+                  <input type="text" id="username" [(ngModel)]="username" name="username" required class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="userEmail">Email:</label>
+                  <input type="email" id="userEmail" [(ngModel)]="email" name="email" required class="form-control">
+                </div>
+                <div class="form-group">
+                  <label for="userPassword">Senha:</label>
+                  <input type="password" id="userPassword" [(ngModel)]="senha" name="password" required class="form-control">
+                </div>
+                <button type="submit" class="submit-button">Salvar Alterações</button>
+              </form>
+            </div>
+          </section>
+          
+          
+    </div>
+</body>
