@@ -24,7 +24,7 @@ export class LoggedinComponent {
   onLogout(): void {
     const confirmLogout = confirm('Você tem certeza que deseja sair?');
     if (confirmLogout) {
-      localStorage.removeItem('token');
+      localStorage.removeItem('token_recipe');
       this.router.navigate(['/login']);
     }
   }
