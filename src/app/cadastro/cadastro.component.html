@@ -6,7 +6,7 @@
     </div>
     <div class="cadastro-container">
         <h1>Cadastro</h1>
-        <form action="/register" method="post">
+        <form (submit)="onRegister()">
             <div class="form-group">
                 <label for="nome">Nome:</label>
                 <input type="text" id="nome" name="nome" [(ngModel)]="nome" required>
@@ -23,13 +23,14 @@
                 <label for="confSenha">Confirmar senha:</label>
                 <input type="password" id="confSenha" name="confSenha" [(ngModel)]="confSenha" required>
             </div>
+            <div *ngIf="isRegisterInvalid">
+                <span style="color: red;">Email ou usuário já em uso</span>
+            </div>
             <button type="submit" 
-            (click)="onRegister()" 
             [disabled]="isFormularioInvalid()" 
             [ngClass]="{'disabled': isFormularioInvalid()}">
             <span style="font-weight: bold;">Cadastrar</span>
             </button>
-
         </form>
     </div>
 </body>

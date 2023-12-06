@@ -6,16 +6,20 @@
     </div>
     <div class="login-container">
         <h1>Login</h1>
-        <form action="/login" method="post">
+        <form (submit)="onLogin($event)">
             <div class="form-group">
                 <label for="email">E-mail:</label>
-                <input type="email" id="email" name="email" required>
+                <input type="email" id="email" name="email" [(ngModel)]="email" required>
             </div>
             <div class="form-group">
                 <label for="password">Senha:</label>
-                <input type="password" id="password" name="password" required>
+                <input type="password" id="password" name="password" [(ngModel)]="password" required>
             </div>
-            <button type="submit" (click)="onLogin()"><span style="font-weight: bold;">Entrar</span></button>
+
+            <div *ngIf="invalidLogin" style="color: red; font-weight: bold;">
+                E-mail ou senha inválidos!
+            </div>
+            <button type="submit"><span style="font-weight: bold;">Entrar</span></button>
         </form>
         <button class="button2" (click)="goToCadastro()"><span style="font-weight: bold;">Cadastrar</span></button>
     </div>

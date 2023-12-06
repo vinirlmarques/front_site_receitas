@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { AccountService } from '../svc/account.service';
+import { Router } from '@angular/router';
 
 
 @Component({
@@ -7,14 +8,19 @@ import { AccountService } from '../svc/account.service';
   templateUrl: './cadastro.component.html',
   styleUrls: ['./cadastro.component.scss']
 })
-export class CadastroComponent {
+export class CadastroComponent{
 
   nome: string = '';
   email: string = '';
   senha: string = '';
   confSenha: string = '';
+  isRegisterInvalid: boolean = false;
 
-  constructor(private authService: AccountService) {}
+  constructor(
+    private authService: AccountService,
+    private router: Router
+    ) {}
+
 
   isFormularioInvalid(): boolean {
     if (this.nome === '') {
@@ -33,12 +39,17 @@ export class CadastroComponent {
   }
 
   onRegister(): void {
-    this.authService.register(this.nome, this.email, this.senha).subscribe(
+    if (this.isFormularioInvalid()) {
+      this.isRegisterInvalid = true;
+      return;
+    }
+    this.authService.register(this.email, this.nome, this.senha).subscribe(
       response => {
-        // Trate a resposta aqui
+        this.router.navigate(['/login']);
       },
       error => {
-        // Trate os erros aqui
+        this.isRegisterInvalid = true;
+        console.error(error);
       }
     );
   }
